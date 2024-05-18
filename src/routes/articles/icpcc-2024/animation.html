@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quoridor Game</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #000;
+        }
+        canvas {
+            background-color: #fff;
+            border: 2px solid #000;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="gameCanvas" width="540" height="540"></canvas>
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+
+        const tileSize = 60;
+        const gridSize = 9;
+
+        const player1 = { x: 4, y: 0 };
+        const player2 = { x: 4, y: 8 };
+        let currentPlayer = 1;
+        const walls = [];
+
+        function drawGrid() {
+            ctx.strokeStyle = '#000';
+            for (let row = 0; row < gridSize; row++) {
+                for (let col = 0; col < gridSize; col++) {
+                    ctx.strokeRect(col * tileSize, row * tileSize, tileSize, tileSize);
+                }
+            }
+        }
+
+        function drawPlayer(player, color) {
+            ctx.fillStyle = color;
+            ctx.beginPath();
+            ctx.arc(player.x * tileSize + tileSize / 2, player.y * tileSize + tileSize / 2, tileSize / 3, 0, 2 * Math.PI);
+            ctx.fill();
+        }
+
+        function drawWalls() {
+            ctx.strokeStyle = '#000';
+            ctx.lineWidth = 5;
+            walls.forEach(wall => {
+                if (wall.orientation === 'h') {
+                    ctx.beginPath();
+                    ctx.moveTo(wall.x * tileSize, wall.y * tileSize + tileSize / 2);
+                    ctx.lineTo((wall.x + 1) * tileSize, wall.y * tileSize + tileSize / 2);
+                    ctx.stroke();
+                } else if (wall.orientation === 'v') {
+                    ctx.beginPath();
+                    ctx.moveTo(wall.x * tileSize + tileSize / 2, wall.y * tileSize);
+                    ctx.lineTo(wall.x * tileSize + tileSize / 2, (wall.y + 1) * tileSize);
+                    ctx.stroke();
+                }
+            });
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawGrid();
+            drawPlayer(player1, '#ff4500');
+            drawPlayer(player2, '#00ff00');
+            drawWalls();
+        }
+
+        function isPathBlocked(x1, y1, x2, y2) {
+            if (x1 === x2) {
+                if (y1 < y2) {
+                    return walls.some(wall => wall.orientation === 'h' && wall.x === x1 && wall.y === y1);
+                } else {
+                    return walls.some(wall => wall.orientation === 'h' && wall.x === x2 && wall.y === y2);
+                }
+            } else if (y1 === y2) {
+                if (x1 < x2) {
+                    return walls.some(wall => wall.orientation === 'v' && wall.x === x1 && wall.y === y1);
+                } else {
+                    return walls.some(wall => wall.orientation === 'v' && wall.x === x2 && wall.y === y2);
+                }
+            }
+            return false;
+        }
+
+        function movePlayer(player, dx, dy) {
+            const newX = player.x + dx;
+            const newY = player.y + dy;
+
+            if (newX >= 0 && newX < gridSize && newY >= 0 && newY < gridSize && !isPathBlocked(player.x, player.y, newX, newY)) {
+                player.x = newX;
+                player.y = newY;
+                currentPlayer = currentPlayer === 1 ? 2 : 1;
+            }
+            draw();
+        }
+
+        function placeWall(x, y, orientation) {
+            if (orientation === 'h' && x < gridSize - 1 && y < gridSize && !walls.some(wall => wall.x === x && wall.y === y && wall.orientation === 'h')) {
+                walls.push({ x, y, orientation: 'h' });
+                currentPlayer = currentPlayer === 1 ? 2 : 1;
+            } else if (orientation === 'v' && x < gridSize && y < gridSize - 1 && !walls.some(wall => wall.x === x && wall.y === y && wall.orientation === 'v')) {
+                walls.push({ x, y, orientation: 'v' });
+                currentPlayer = currentPlayer === 1 ? 2 : 1;
+            }
+            draw();
+        }
+
+        window.addEventListener('keydown', (e) => {
+            switch (e.key) {
+                case 'ArrowUp':
+                    if (currentPlayer === 1) movePlayer(player1, 0, -1);
+                    else movePlayer(player2, 0, -1);
+                    break;
+                case 'ArrowDown':
+                    if (currentPlayer === 1) movePlayer(player1, 0, 1);
+                    else movePlayer(player2, 0, 1);
+                    break;
+                case 'ArrowLeft':
+                    if (currentPlayer === 1) movePlayer(player1, -1, 0);
+                    else movePlayer(player2, -1, 0);
+                    break;
+                case 'ArrowRight':
+                    if (currentPlayer === 1) movePlayer(player1, 1, 0);
+                    else movePlayer(player2, 1, 0);
+                    break;
+                case 'w':
+                    if (currentPlayer === 1) placeWall(player1.x, player1.y, 'h');
+                    else placeWall(player2.x, player2.y, 'h');
+                    break;
+                case 'v':
+                    if (currentPlayer === 1) placeWall(player1.x, player1.y, 'v');
+                    else placeWall(player2.x, player2.y, 'v');
+                    break;
+            }
+        });
+
+        draw();
+    </script>
+</body>
+</html>
