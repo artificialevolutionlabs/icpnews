@@ -40,7 +40,7 @@
 				<Slide image={images[index]} />
 			</a>
 			</Carousel>
-			<div class="w-[800px] rounded h-10 bg-black dark:bg-gray-700 dark:text-white p-2 my-2 text-center">
+			<div class="w-full rounded h-10 bg-black dark:bg-gray-700 dark:text-white p-2 my-2 text-center">
 				{image?.alt}
 			</div>
 		</div>
