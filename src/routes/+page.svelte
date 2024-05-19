@@ -31,7 +31,7 @@
 	<meta name="description" content="ICP News" />
 </svelte:head>
 
-<div class="">
+<div class="flex md:flex-row flex-col">
 	<section class="bg-black text-white justify-center">
 		<div class="justify-center">
 			<div class="max-w-4xl space-y-4">
