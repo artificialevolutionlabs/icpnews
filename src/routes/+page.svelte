@@ -47,7 +47,7 @@
 		</div>
 	</section>
 
-	<section class="bg-black text-white justify-center w-full p-4 m-4">
+	<section class="bg-black text-white justify-center w-full p-2 m-2">
 		<div  class="flex md:flex-row flex-col space-y-4 gap-8">
 			<Card img="/images/carousel/icpcc.png" class="bg-black text-white border-zinc-900">
 				<h5 class="mb-2 text-2xl font-bold tracking-tight text-white">ICPCC 2024: Alien tech Invasion!</h5>
