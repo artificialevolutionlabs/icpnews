@@ -3,7 +3,7 @@
 	import './styles.css';
 </script>
 
-<div class="bg-black min-h-screen flex flex-col items-center">
+<div class="bg-black min-h-screen flex flex-col items-center w-full p-2 m-2">
 	<Header />
 
 	<main class="flex w-full p-4 m-4 justify-center grow text-white bg-black">

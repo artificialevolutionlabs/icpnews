@@ -31,7 +31,7 @@
 	<meta name="description" content="ICP News" />
 </svelte:head>
 
-<div class="flex md:flex-row flex-col">
+<div class="flex md:flex-row flex-col w-full p-2 m-2">
 	<section class="bg-black text-white justify-center">
 		<div class="justify-center">
 			<div class="max-w-4xl space-y-4">
@@ -47,8 +47,8 @@
 		</div>
 	</section>
 
-	<section class="bg-black text-white justify-center p-4 m-4">
-		<div  class="flex flex-row space-y-4 gap-8">
+	<section class="bg-black text-white justify-center w-full p-4 m-4">
+		<div  class="flex md:flex-row flex-col space-y-4 gap-8">
 			<Card img="/images/carousel/icpcc.png" class="bg-black text-white border-zinc-900">
 				<h5 class="mb-2 text-2xl font-bold tracking-tight text-white">ICPCC 2024: Alien tech Invasion!</h5>
 				<p class="mb-3 font-normal text-white leading-tight">The 2024 ICPCC is a global Web3 event celebrating the 3rd mainnet launch anniversary of the ICP.</p>
