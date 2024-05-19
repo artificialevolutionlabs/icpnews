@@ -3,7 +3,7 @@
 	<meta name="description" content="About this app" />
 </svelte:head>
 
-<div class="flex justify-center flex-row w-full p-4">
+<div class="flex justify-center flex-row w-full md:w-1/2 p-4">
 	<section class="flex flex-col bg-black text-white items-center w-full">
         <h1 class="font-bold text-3xl">About</h1>    
         <div class="flex flex-col w-full gap-2">
